@@ -1,0 +1,218 @@
+
+local SolarisLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/sol"))()
+
+local plr = game.Players.LocalPlayer
+local char = plr.Character
+local rs = game:GetService('RunService')
+
+
+local win = SolarisLib:New({
+  Name = "SunLight Animator",
+  FolderToSave = "SunLight"
+})
+
+local attached = false
+
+local bodyparts = {}
+local bodypart = nil
+
+local hats = {}
+local hat = nil
+
+local hatX = 0
+local hatY = 0
+local hatZ = 0
+
+local RhatX = 0
+local RhatY = 0
+local RhatZ = 0
+
+local netless = false
+local removemesh = false
+
+for i,v in next, game.Players.LocalPlayer.Character:GetDescendants() do
+if v:IsA('Accessory') then
+table.insert(hats,v.Name)
+end
+end
+
+for i,v in next, game.Players.LocalPlayer.Character:GetDescendants() do
+if v:IsA("BasePart") and v.Name ~="HumanoidRootPart" and v.Name ~="Handle" then
+table.insert(bodyparts,v.Name)
+end
+end
+
+
+
+function align(P0,P1,POS,ROT,name)
+	local AlignPosition = Instance.new("AlignPosition", P0)
+	AlignPosition.Name = "AP" .. name
+	local AlignOrientation = Instance.new("AlignOrientation", P0)
+	AlignOrientation.Name = "AO" .. name
+	local Attachment1 = Instance.new("Attachment", P0)
+	Attachment1.Name = "Att1" .. name
+	local Attachment2 = Instance.new("Attachment", P1)
+	Attachment2.Name = "Att2" .. name
+	AlignPosition.Attachment0 = Attachment1
+	AlignOrientation.Attachment0 = Attachment1
+	AlignPosition.Attachment1 = Attachment2
+	AlignOrientation.Attachment1 = Attachment2
+	AlignPosition.Responsiveness = math.huge
+	AlignPosition.MaxForce = 5e9
+	AlignOrientation.MaxTorque = 5e9
+	AlignOrientation.Responsiveness = math.huge
+	AlignOrientation.ReactionTorqueEnabled = false
+	Attachment1.Position = POS or Vector3.new(0,0,0)
+	Attachment1.Orientation = ROT or Vector3.new(0,0,0)
+end
+
+
+
+local tab = win:Tab("Hat")
+
+local sec = tab:Section("Test")
+local main = tab:Section("Main")
+local pos = tab:Section("Position")
+local rot = tab:Section("Rotation")
+local template = tab:Section("Template")
+
+main:Button('Debug',function()
+hat.Handle.AccessoryWeld:Destroy()
+align(hat.Handle, bodypart, Vector3.new(0, 0, 0), Vector3.new(0, 0, 0),hat.Name)
+attached = true
+end)
+
+main:Button('Remove Mesh',function()
+for i,mesh in pairs(hat.Handle:GetDescendants()) do
+if mesh:IsA("Mesh") or mesh:IsA("SpecialMesh") then
+mesh:Destroy()
+removemesh = true
+end
+end
+end)
+
+local toggle = main:Toggle("Netless", false,"Toggle", function(v)
+  netless = v
+end)
+
+local dropdown = main:Dropdown("Hat", hats,"","Dropdown", function(hatname)
+hat = game.Players.LocalPlayer.Character:FindFirstChild(hatname)
+end)
+
+local dropdown = main:Dropdown("Body Part",bodyparts,"","Dropdown", function(part)
+bodypart = game.Players.LocalPlayer.Character:FindFirstChild(part)
+end)
+
+
+local x = pos:Slider("X", -4,4,0,0.1,"Slider", function(v)
+if attached == true then
+hatX = v
+hat.Handle:FindFirstChild("Att1" .. hat.Name).Position = Vector3.new(hatX,hatY,hatZ)
+end
+end)
+
+local y = pos:Slider("Y", -4,4,0,0.1,"Slider", function(v)
+if attached == true then
+hatY = v
+hat.Handle:FindFirstChild("Att1" .. hat.Name).Position = Vector3.new(hatX,hatY,hatZ)
+end
+end)
+
+local z = pos:Slider("Z", -4,4,0,0.1,"Slider", function(v)
+if attached == true then
+hatZ = v
+hat.Handle:FindFirstChild("Att1" .. hat.Name).Position = Vector3.new(hatX,hatY,hatZ)
+end
+end)
+
+local rx = rot:Slider("X", -360,360,0,0.1,"Slider", function(v)
+if attached == true then
+RhatX = v
+bodypart:FindFirstChild("Att2" .. hat.Name).Orientation = Vector3.new(RhatX,RhatY,RhatZ)
+end
+end)
+
+local ry = rot:Slider("Y", -360,360,0,0.1,"Slider", function(v)
+if attached == true then
+RhatY = v
+bodypart:FindFirstChild("Att2" .. hat.Name).Orientation = Vector3.new(RhatX,RhatY,RhatZ)
+end
+end)
+
+local rz = rot:Slider("Z", -360,360,0,0.1,"Slider", function(v)
+if attached == true then
+RhatZ = v
+bodypart:FindFirstChild("Att2" .. hat.Name).Orientation = Vector3.new(RhatX,RhatY,RhatZ)
+end
+end)
+
+
+
+
+
+for i,v in next, game:GetService("Players").LocalPlayer.Character:GetDescendants() do
+	if v:IsA("BasePart") and v.Name ~="HumanoidRootPart" then
+game:GetService("RunService").Heartbeat:connect(function()
+	v.Velocity = Vector3.new(-30,0,0)
+end)
+end
+end
+
+
+
+
+
+template:Button('Copy Template',function()
+local main = [[
+
+function align(P0,P1,POS,ROT,name)
+	local AlignPosition = Instance.new("AlignPosition", P0)
+	AlignPosition.Name = "AP" .. name
+	local AlignOrientation = Instance.new("AlignOrientation", P0)
+	AlignOrientation.Name = "AO" .. name
+	local Attachment1 = Instance.new("Attachment", P0)
+	Attachment1.Name = "Att1" .. name
+	local Attachment2 = Instance.new("Attachment", P1)
+	Attachment2.Name = "Att2" .. name
+	AlignPosition.Attachment0 = Attachment1
+	AlignOrientation.Attachment0 = Attachment1
+	AlignPosition.Attachment1 = Attachment2
+	AlignOrientation.Attachment1 = Attachment2
+	AlignPosition.Responsiveness = math.huge
+	AlignPosition.MaxForce = 5e9
+	AlignOrientation.MaxTorque = 5e9
+	AlignOrientation.Responsiveness = math.huge
+	AlignOrientation.ReactionTorqueEnabled = false
+	Attachment1.Position = POS or Vector3.new(0,0,0)
+	Attachment1.Orientation = ROT or Vector3.new(0,0,0)
+end
+
+hat.Handle.AccessoryWeld:Destroy()
+align(hat.Handle, bodypart, Lerps.Position, Lerps.Rotation, "SunLight Animator Attachment")
+]]
+local space = [[
+
+]]
+local vars = [[local Player = game.Players.LocalPlayer
+local Character = Player.Character
+]].."local hat = Character:FindFirstChild('" .. hat.Name .. "')" .. space .. "local bodypart = Character:FindFirstChild('" .. bodypart.Name .. "')"..space.."removemesh = false --make it true if u want to remove ur mesh"
+local lerps = "local Lerps = {Rotation = Vector3.new("..RhatX..","..RhatY..","..RhatZ.."), Position = Vector3.new("..hatX..","..hatY..","..hatZ..")}"
+local net = [[for i,v in next, game:GetService("Players").LocalPlayer.Character:GetDescendants() do
+	if v:IsA("BasePart") and v.Name ~="HumanoidRootPart" then
+game:GetService("RunService").Heartbeat:connect(function()
+	v.Velocity = Vector3.new(-30,0,0)
+end)
+end
+end
+]]
+local rmesh = [[if removemesh == true then
+for i,mesh in pairs(hat.Handle:GetDescendants()) do
+if mesh:IsA("Mesh") or mesh:IsA("SpecialMesh") then
+mesh:Destroy()
+end
+end
+end
+]]
+local temp = lerps..space..vars..main..space..net..space..rmesh
+setclipboard(temp)
+end)
