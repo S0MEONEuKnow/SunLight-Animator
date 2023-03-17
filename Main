@@ -1,0 +1,109 @@
+
+
+-- Instances:
+
+local SunLight = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local button1 = Instance.new("TextButton")
+local UICorner_2 = Instance.new("UICorner")
+local button2 = Instance.new("TextButton")
+local UICorner_3 = Instance.new("UICorner")
+local TextLabel = Instance.new("TextLabel")
+local UICorner_4 = Instance.new("UICorner")
+
+--Properties:
+
+SunLight.Name = "SunLight"
+SunLight.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+SunLight.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Parent = SunLight
+Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+Frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+Frame.Size = UDim2.new(0, 235, 0, 300)
+
+UICorner.Parent = Frame
+
+button1.Name = "button1"
+button1.Parent = Frame
+button1.AnchorPoint = Vector2.new(0.5, 0)
+button1.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+button1.Position = UDim2.new(0.5, 0, 0, 30)
+button1.Selectable = false
+button1.Size = UDim2.new(0, 200, 0, 35)
+button1.AutoButtonColor = false
+button1.Font = Enum.Font.SourceSansBold
+button1.Text = "SunLight Animator Attachment Version"
+button1.TextColor3 = Color3.fromRGB(255, 255, 255)
+button1.TextSize = 12.000
+button1.TextWrapped = true
+
+UICorner_2.Parent = button1
+
+button2.Name = "button2"
+button2.Parent = Frame
+button2.AnchorPoint = Vector2.new(0.5, 0)
+button2.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+button2.Position = UDim2.new(0.5, 0, 0, 80)
+button2.Selectable = false
+button2.Size = UDim2.new(0, 200, 0, 35)
+button2.AutoButtonColor = false
+button2.Font = Enum.Font.SourceSansBold
+button2.Text = "SunLight Animator Weld Version"
+button2.TextColor3 = Color3.fromRGB(255, 255, 255)
+button2.TextSize = 12.000
+button2.TextWrapped = true
+
+UICorner_3.Parent = button2
+
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+TextLabel.Position = UDim2.new(0.0723404288, 0, 0.416666657, 0)
+TextLabel.Size = UDim2.new(0, 200, 0, 160)
+TextLabel.Font = Enum.Font.SourceSansBold
+TextLabel.Text = "SunLight Animator Weld Version Is Recommended But its still in beta"
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextSize = 14.000
+TextLabel.TextWrapped = true
+
+UICorner_4.Parent = TextLabel
+
+
+local ts = game:GetService("TweenService")
+
+button1.MouseEnter:Connect(function()
+	ts:Create(button1, TweenInfo.new(0.5), {TextColor3 = Color3.fromRGB(177, 0, 0)}):Play()
+end)
+
+button1.MouseLeave:Connect(function()
+	ts:Create(button1, TweenInfo.new(0.5), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+end)
+
+local ts = game:GetService("TweenService")
+
+button2.MouseEnter:Connect(function()
+	ts:Create(button2, TweenInfo.new(0.5), {TextColor3 = Color3.fromRGB(177, 0, 0)}):Play()
+end)
+
+button2.MouseLeave:Connect(function()
+	ts:Create(button2, TweenInfo.new(0.5), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+end)
+
+local ts = game:GetService("TweenService")
+
+TextLabel.MouseEnter:Connect(function()
+	ts:Create(TextLabel, TweenInfo.new(0.5), {TextColor3 = Color3.fromRGB(177, 0, 0)}):Play()
+end)
+
+TextLabel.MouseLeave:Connect(function()
+	ts:Create(TextLabel, TweenInfo.new(0.5), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+end)
+
+
+
+button1.MouseButton1Click:Connect(function()
+	SunLight:Destroy()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/S0MEONEuKnow/SunLight-Animator/main/Attachment%20Version"))()
+end)
