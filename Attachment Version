@@ -91,10 +91,6 @@ end
 end
 end)
 
-local toggle = main:Toggle("Netless", false,"Toggle", function(v)
-  netless = v
-end)
-
 local dropdown = main:Dropdown("Hat", hats,"","Dropdown", function(hatname)
 hat = game.Players.LocalPlayer.Character:FindFirstChild(hatname)
 end)
